@@ -15,9 +15,11 @@ class GameService
 
     public const SEQ_LENGTH = 4;
 
-    public const PATH_TO_STORE_IN_PROGRESS = 'private/in-progress/';
+    public const PATH_TO_STORE_IN_PROGRESS = 'private/in-progress';
 
-    public const PATH_TO_STORE_COMPLETED = 'private/completed/';
+    public const PATH_TO_STORE_COMPLETED = 'private/complete/';
+
+    public const TOP_N_RESULTS = 10;
 
     /**
      * @var int
@@ -75,7 +77,7 @@ class GameService
 
     public function storeGameResult(string $gameId) {
 
-        $storageSuggestions = Storage::disk('local')->get('private/in-progress/'.$gameId.'.txt');
+        $storageSuggestions = Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt');
         if($storageSuggestions) {
             $storageSuggestions = (int)$storageSuggestions + 1;
         } else {
@@ -89,13 +91,33 @@ class GameService
 
     public function updateStoreOnGameComplete($gameId) {
 
-        Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
+        $files = Storage::files(GameService::PATH_TO_STORE_COMPLETED);
+        $currentFiles = $this->getStats();
+        if(count($files) < GameService::TOP_N_RESULTS) {
+            Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
+        } else {
+
+            $last = end($currentFiles);
+            if($last > Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt')) {
+                Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
+                $lastKey = key($last);
+                Storage::disk('local')->delete($lastKey);
+            }
+        }
+
         Storage::disk('local')->delete(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt');
     }
 
     public function getStats() {
 
-        //list all private/complete
+        $files = Storage::files(GameService::PATH_TO_STORE_COMPLETED);
+        $currentFiles = [];
+        foreach($files as $file) {
+            $currentFiles[$file] = Storage::disk('local')->get($file);
+        }
+        asort($currentFiles);
+
+        return $currentFiles;
     }
 
     /**
