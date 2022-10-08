@@ -11,3 +11,30 @@ services:
     volumes:
       - ./src:/var/www/laravel_docker
       - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks:
+      - app_network
+
+#  mysql:
+#    image: mysql:8
+#    container_name: mysql_db
+#    ports:
+#      - "3307:3306"
+#    restart: unless-stopped
+#    volumes:
+#      - db_data:/var/lib/mysql
+#    environment:
+#      - MYSQL_DATABASE=caw_bull
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=secret
+#      - MYSQL_ROOT_PASSWORD=secret
+#    networks:
+#      - app_network
+#
+#volumes:
+#  db_data:
+#    driver: "local"
+
+networks:
+  app_network:
+    driver: "bridge"
+

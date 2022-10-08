@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Services\GameService;
 use App\Services\ValidateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class GameController extends Controller
@@ -52,14 +53,18 @@ class GameController extends Controller
         if (!$this->validateService->isNumberValid($suggestion)) {
             return [
                 'error' => 'Suggestion must be 4 digit number with unique digits',
-                'suggestion' => $suggestion,
             ];
         }
 
+        $this->gameService->storeGameResult($gameId);
 
         $gameRound = $this->gameService->calculateCawsAndBulls($sequence, $suggestion);
+        $gameComplete = isset($gameRound['bulls']) && $gameRound['bulls'] == 4 ? 1 : 0;
+        if($gameComplete) {
+            $this->gameService->updateStoreOnGameComplete($gameId);
+        }
         return [
-            'gameComplete' => isset($gameRound['bulls']) && $gameRound['bulls'] == 4 ? 1 : 0,
+            'gameComplete' => $gameComplete,
             'bulls' => isset($gameRound['bulls']) ? $gameRound['bulls'] : 0,
             'caws' => isset($gameRound['caws']) ? $gameRound['caws'] : 0,
             'gameId' => $gameId,

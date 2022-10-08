@@ -4,6 +4,8 @@
 namespace App\Services;
 
 
+use Illuminate\Support\Facades\Storage;
+
 /**
  * Class GameService
  * @package App\Services
@@ -13,6 +15,10 @@ class GameService
 
     public const SEQ_LENGTH = 4;
 
+    public const PATH_TO_STORE_IN_PROGRESS = 'private/in-progress/';
+
+    public const PATH_TO_STORE_COMPLETED = 'private/completed/';
+
     /**
      * @var int
      */
@@ -21,6 +27,9 @@ class GameService
      * @var int
      */
     protected $caws = 0;
+
+    /** @var int  */
+    protected $suggestionsCount = 0;
 
     /**
      * @return string|null
@@ -62,6 +71,31 @@ class GameService
         }
 
         return $seq;
+    }
+
+    public function storeGameResult(string $gameId) {
+
+        $storageSuggestions = Storage::disk('local')->get('private/in-progress/'.$gameId.'.txt');
+        if($storageSuggestions) {
+            $storageSuggestions = (int)$storageSuggestions + 1;
+        } else {
+            $storageSuggestions = 1;
+        }
+
+        Storage::disk('local')->put(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt', $storageSuggestions);
+
+        $this->suggestionsCount = $storageSuggestions;
+    }
+
+    public function updateStoreOnGameComplete($gameId) {
+
+        Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
+        Storage::disk('local')->delete(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt');
+    }
+
+    public function getStats() {
+
+        //list all private/complete
     }
 
     /**
