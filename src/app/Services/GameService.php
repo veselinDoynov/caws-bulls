@@ -20,7 +20,7 @@ class GameService
 
     public const PATH_TO_STORE_COMPLETED = 'private/complete/';
 
-    public const TOP_N_RESULTS = 5;
+    public const TOP_N_RESULTS = 10;
 
     /**
      * @var int
