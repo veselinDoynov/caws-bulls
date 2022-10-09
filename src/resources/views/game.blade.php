@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row">
         <div class="well">
-            <h1>Welcome player {{$gameId}} </h1>
+            <h2>Welcome player <span style="font-size: large;color:saddlebrown"> ({{$gameId}}) </span></h2>
             <h3 class="-mb-2">Let's play game caws and bulls ... good luck :) </h3>
 
             <p hidden><span>Number is: {{$sequence}}</span></p>
@@ -25,7 +25,7 @@
                 <p style="color:silver" id="current_suggestions"></p>
                 <hr>
                 <button id="submitRound" class="btn btn-success">Shoot</button>
-                <button  id="newGame" class="btn btn-success" style="float: right;">Start new game</button>
+                <button id="newGame" class="btn btn-success" style="float: right;">Start new game</button>
                 <br/>
                 <br/>
                 <p style="color:red" hidden id="error"></p>
@@ -80,7 +80,6 @@
         });
 
 
-
         function gameOn() {
 
             $('#loading').show();
@@ -106,14 +105,15 @@
                     $('#loading').hide();
                     $('#currentResult').html('');
                     $('#currentResult').show();
+                    suggestions.push($("#numberSuggested").val() + ' caws:' + data.caws + ' bulls:' + data.bulls + ' ');
+                    $("#current_suggestions").html('Your suggestions so far: ( ' + String(suggestions)+ ' )');
                     if (data.gameComplete == 1) {
-                        $('#gameWin').show();
+                        $('#gameWin').show().html('You win !! ( with ' + suggestions.length + ' attempts )');
                         $('#submitRound').hide();
                         $('#newGame').show();
                         return;
                     }
-                    suggestions.push($("#numberSuggested").val());
-                    $("#current_suggestions").html('Your suggestions so far: '+ String(suggestions));
+                    
                     $('#currentResult').html('You have ' + data.bulls + ' bulls and ' + data.caws + ' caws');
 
 
