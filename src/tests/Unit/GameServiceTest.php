@@ -87,10 +87,26 @@ class GameServiceTest extends TestCase
         $seq = [5, 3, 1, 8];
         $suggestion = [1, 5, 8, 3];
         $result = $this->gameService->calculateCawsAndBulls($seq, $suggestion);
-        
+
 
         $this->assertEquals(0, $result['bulls']);
         $this->assertEquals(4, $result['caws']);
+
+        $seq = [5, 3, 1, 8];
+        $suggestion = [5, 3, 8, 1];
+        $result = $this->gameService->calculateCawsAndBulls($seq, $suggestion);
+
+
+        $this->assertEquals(2, $result['bulls']);
+        $this->assertEquals(2, $result['caws']);
+
+        $seq = [5, 3, 1, 8];
+        $suggestion = [5, 3, 1, 8];
+        $result = $this->gameService->calculateCawsAndBulls($seq, $suggestion);
+
+
+        $this->assertEquals(4, $result['bulls']);
+        $this->assertEquals(0, $result['caws']);
 
     }
 
