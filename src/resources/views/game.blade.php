@@ -17,7 +17,7 @@
             <h2>Welcome player <span style="font-size: large;color:saddlebrown"> ({{$gameId}}) </span></h2>
             <h3 class="-mb-2">Let's play game caws and bulls ... good luck :) </h3>
 
-            <p hidden><span>Number is: {{$sequence}}</span></p>
+            <p id="cheater" hidden><span>Number is: {{$sequence}}</span></p>
 
             <form>
                 <input id="numberSuggested" class="form-control small" type="text" placeholder="Your suggestion here"
