@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -15,11 +16,11 @@ class GameService
 
     public const SEQ_LENGTH = 4;
 
-    public const PATH_TO_STORE_IN_PROGRESS = 'private/in-progress';
+    public const PATH_TO_STORE_IN_PROGRESS = 'private/in-progress/';
 
     public const PATH_TO_STORE_COMPLETED = 'private/complete/';
 
-    public const TOP_N_RESULTS = 10;
+    public const TOP_N_RESULTS = 5;
 
     /**
      * @var int
@@ -30,7 +31,7 @@ class GameService
      */
     protected $caws = 0;
 
-    /** @var int  */
+    /** @var int */
     protected $suggestionsCount = 0;
 
     /**
@@ -75,49 +76,72 @@ class GameService
         return $seq;
     }
 
-    public function storeGameResult(string $gameId) {
+    public function storeGameResult(string $gameId)
+    {
 
-        $storageSuggestions = Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt');
-        if($storageSuggestions) {
+        $storageSuggestions = Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS . $gameId . '.txt');
+        if ($storageSuggestions) {
             $storageSuggestions = (int)$storageSuggestions + 1;
         } else {
             $storageSuggestions = 1;
         }
 
-        Storage::disk('local')->put(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt', $storageSuggestions);
+        Storage::disk('local')->put(GameService::PATH_TO_STORE_IN_PROGRESS . $gameId . '.txt', $storageSuggestions);
 
         $this->suggestionsCount = $storageSuggestions;
     }
 
-    public function updateStoreOnGameComplete($gameId) {
+    public function updateStoreOnGameComplete($gameId)
+    {
 
+        $now = Carbon::now()->toDateTimeString();
         $files = Storage::files(GameService::PATH_TO_STORE_COMPLETED);
         $currentFiles = $this->getStats();
-        if(count($files) < GameService::TOP_N_RESULTS) {
-            Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
+        if (count($files) < GameService::TOP_N_RESULTS) {
+            Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED . $gameId . '_' . $now . '.txt', $this->suggestionsCount);
         } else {
 
             $last = end($currentFiles);
-            if($last > Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt')) {
-                Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED.$gameId.'.txt', $this->suggestionsCount);
-                $lastKey = key($last);
+
+            if ($last >= Storage::disk('local')->get(GameService::PATH_TO_STORE_IN_PROGRESS . $gameId . '.txt')) {
+                Storage::disk('local')->put(GameService::PATH_TO_STORE_COMPLETED . $gameId . '_' . $now . '.txt', $this->suggestionsCount);
+                $lastKey = array_key_last($currentFiles);
                 Storage::disk('local')->delete($lastKey);
             }
         }
 
-        Storage::disk('local')->delete(GameService::PATH_TO_STORE_IN_PROGRESS.$gameId.'.txt');
+        Storage::disk('local')->delete(GameService::PATH_TO_STORE_IN_PROGRESS . $gameId . '.txt');
     }
 
-    public function getStats() {
+    public function getStats()
+    {
 
         $files = Storage::files(GameService::PATH_TO_STORE_COMPLETED);
         $currentFiles = [];
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $currentFiles[$file] = Storage::disk('local')->get($file);
         }
         asort($currentFiles);
 
         return $currentFiles;
+    }
+
+    public function getStatsInfoParsed()
+    {
+        $stats = $this->getStats();
+        $formattedStats = [];
+
+        foreach ($stats as $key => $result) {
+            $formattedKey = str_replace(['private/complete/', '.txt'], '', $key);
+            $formattedKey = explode('_', $formattedKey);
+            $formattedStats[$formattedKey[0]] = [
+                'date' => $formattedKey[1],
+                'result' => $result
+            ];
+
+        }
+
+        return $formattedStats;
     }
 
     /**

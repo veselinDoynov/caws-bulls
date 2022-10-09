@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Services\GameService;
 use App\Services\ValidateService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,10 +32,10 @@ class GameController extends Controller
     {
 
         $gameNumber = $this->gameService->generateUniqueDigitSequence();
-
         return view('game', [
             'gameId' => $this->gameService->generateGameId(),
             'sequence' => implode('', $gameNumber),
+            'topResults' => $this->gameService->getStatsInfoParsed()
         ]);
     }
 

@@ -17,7 +17,7 @@ class ValidateService
     public function isNumberValid(array $number): bool
     {
 
-        return count($number) == GameService::SEQ_LENGTH && $this->isUniqueSequence($number);
+        return $this->isOnlyDigits($number) && count($number) == GameService::SEQ_LENGTH && $this->isUniqueSequence($number);
     }
 
 
@@ -27,7 +27,13 @@ class ValidateService
      */
     protected function isUniqueSequence(array $number): bool
     {
-
         return count($number) == count(array_flip($number));
+    }
+
+    protected function isOnlyDigits($number) {
+
+        $numberStr = (int)implode('', $number);
+        $newNumber = str_split($numberStr);
+        return count($newNumber) == count($number);
     }
 }
