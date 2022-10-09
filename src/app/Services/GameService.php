@@ -26,14 +26,6 @@ class GameService
 
     public const ODD_FORBIDDEN = [4, 5];
 
-    /**
-     * @var int
-     */
-    protected $bulls = 0;
-    /**
-     * @var int
-     */
-    protected $caws = 0;
 
     /** @var int */
     protected $suggestionsCount = 0;
@@ -118,16 +110,18 @@ class GameService
     public function calculateCawsAndBulls(array $number, array $suggestion): array
     {
 
+        $caws = 0;
+        $bulls = 0;
         for ($i = 0; $i < count($suggestion); $i++) {
             if (in_array($suggestion[$i], $number) && $suggestion[$i] == $number[$i]) {
-                $this->bulls++;
+                $bulls++;
                 unset($number[$i]);
             } else if (in_array($suggestion[$i], $number)) {
-                $this->caws++;
+                $caws++;
             }
         }
 
-        return ['caws' => $this->caws, 'bulls' => $this->bulls];
+        return ['caws' => $caws, 'bulls' => $bulls];
     }
 
     public function storeGameResult(string $gameId)

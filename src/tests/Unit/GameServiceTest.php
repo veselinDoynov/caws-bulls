@@ -75,4 +75,23 @@ class GameServiceTest extends TestCase
         $this->assertEquals(5, count(array_diff($possibilities, $seq)));
     }
 
+    public function testCalculateCawsAndBulls()
+    {
+        $seq = [5, 3, 1, 8];
+        $suggestion = [5, 1, 2, 9];
+        $result = $this->gameService->calculateCawsAndBulls($seq, $suggestion);
+
+        $this->assertEquals(1, $result['bulls']);
+        $this->assertEquals(1, $result['caws']);
+
+        $seq = [5, 3, 1, 8];
+        $suggestion = [1, 5, 8, 3];
+        $result = $this->gameService->calculateCawsAndBulls($seq, $suggestion);
+        
+
+        $this->assertEquals(0, $result['bulls']);
+        $this->assertEquals(4, $result['caws']);
+
+    }
+
 }

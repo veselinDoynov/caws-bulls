@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00382185-7775-4471-8a6c-5b9bd535d65d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tests/Unit/GameValidateServiceTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Services/GameService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Services/GameService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Services/ValidateService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Services/ValidateService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/views/game.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/views/game.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/Services/GameService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-562">
-              <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+            <state relative-caret-position="305">
+              <caret line="117" column="20" selection-start-line="117" selection-start-column="20" selection-end-line="117" selection-end-column="20" />
               <folding>
                 <element signature="e#34#52#0#PHP" expanded="true" />
               </folding>
@@ -86,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="711">
+              <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
               <folding>
                 <element signature="e#32#61#0#PHP" expanded="true" />
               </folding>
@@ -98,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameValidateServiceTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+            <state relative-caret-position="629">
+              <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
               <folding>
                 <element signature="e#31#64#0#PHP" expanded="true" />
               </folding>
@@ -147,9 +142,9 @@
         <option value="$PROJECT_DIR$/README.txt" />
         <option value="$PROJECT_DIR$/src/resources/views/game.blade.php" />
         <option value="$PROJECT_DIR$/src/app/Services/GameService.php" />
-        <option value="$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php" />
         <option value="$PROJECT_DIR$/src/app/Services/ValidateService.php" />
         <option value="$PROJECT_DIR$/src/tests/Unit/GameValidateServiceTest.php" />
+        <option value="$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php" />
       </list>
     </option>
   </component>
@@ -393,12 +388,12 @@
       <workItem from="1618503420071" duration="1561000" />
       <workItem from="1665231375534" duration="8444000" />
       <workItem from="1665244054498" duration="2647000" />
-      <workItem from="1665293999916" duration="13347000" />
+      <workItem from="1665293999916" duration="13592000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34737000" />
+    <option name="totallyTimeSpent" value="34982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
@@ -629,28 +624,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#32#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/Services/GameService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-562">
-          <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
-          <folding>
-            <element signature="e#34#52#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/storage/app/private/complete/e559063f-7665-471d-9fc3-89ac4567e93b_2022-10-09 070446.txt">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameValidateServiceTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+          <folding>
+            <element signature="e#31#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/Services/ValidateService.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -659,12 +644,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameValidateServiceTest.php">
+    <entry file="file://$PROJECT_DIR$/src/app/Services/GameService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+        <state relative-caret-position="305">
+          <caret line="117" column="20" selection-start-line="117" selection-start-column="20" selection-end-line="117" selection-end-column="20" />
           <folding>
-            <element signature="e#31#64#0#PHP" expanded="true" />
+            <element signature="e#34#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/Unit/GameServiceTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="711">
+          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
+          <folding>
+            <element signature="e#32#61#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
