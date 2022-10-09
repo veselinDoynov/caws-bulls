@@ -22,6 +22,10 @@ class GameService
 
     public const TOP_N_RESULTS = 10;
 
+    public const NEIGHBORS = [1, 8];
+
+    public const ODD_FORBIDDEN = [4, 5];
+
     /**
      * @var int
      */
@@ -59,10 +63,40 @@ class GameService
     }
 
     /**
+     * @param array $seq
+     * @return bool
+     */
+    public function isOk(array $seq): bool
+    {
+
+        $uniqueSeq = array_unique($seq);
+        if (count($uniqueSeq) < count($seq)) {
+            return false;
+        }
+        for ($i = 0; $i < count($seq); $i++) {
+
+            if (in_array($seq[$i], GameService::NEIGHBORS)) {
+                $surroundLeft = isset($seq[$i - 1]) ? $seq[$i - 1] : 0;
+                $surroundRight = isset($seq[$i + 1]) ? $seq[$i + 1] : 0;
+                if (!in_array($surroundLeft, GameService::NEIGHBORS) && !in_array($surroundRight, GameService::NEIGHBORS)) {
+                    return false;
+                }
+            }
+
+            if (($i + 1) % 2 == 0 && in_array($seq[$i], GameService::ODD_FORBIDDEN)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    /**
      * @param int $length
      * @return array
      */
-    protected function sequence(int $length): array
+    public function sequence(int $length): array
     {
 
         $seq = [];
@@ -74,6 +108,26 @@ class GameService
         }
 
         return $seq;
+    }
+
+    /**
+     * @param array $number
+     * @param array $suggestion
+     * @return array
+     */
+    public function calculateCawsAndBulls(array $number, array $suggestion): array
+    {
+
+        for ($i = 0; $i < count($suggestion); $i++) {
+            if (in_array($suggestion[$i], $number) && $suggestion[$i] == $number[$i]) {
+                $this->bulls++;
+                unset($number[$i]);
+            } else if (in_array($suggestion[$i], $number)) {
+                $this->caws++;
+            }
+        }
+
+        return ['caws' => $this->caws, 'bulls' => $this->bulls];
     }
 
     public function storeGameResult(string $gameId)
@@ -143,55 +197,4 @@ class GameService
 
         return $formattedStats;
     }
-
-    /**
-     * @param array $number
-     * @param array $suggestion
-     * @return array
-     */
-    public function calculateCawsAndBulls(array $number, array $suggestion): array
-    {
-
-        for ($i = 0; $i < count($suggestion); $i++) {
-            if (in_array($suggestion[$i], $number) && $suggestion[$i] == $number[$i]) {
-                $this->bulls++;
-                unset($number[$i]);
-            } else if (in_array($suggestion[$i], $number)) {
-                $this->caws++;
-            }
-        }
-
-        return ['caws' => $this->caws, 'bulls' => $this->bulls];
-    }
-
-    /**
-     * @param array $seq
-     * @return bool
-     */
-    protected function isOk(array $seq): bool
-    {
-
-        $uniqueSeq = array_unique($seq);
-        if (count($uniqueSeq) < count($seq)) {
-            return false;
-        }
-        for ($i = 0; $i < count($seq); $i++) {
-            if (isset($seq[$i - 1])) {
-
-                if ($seq[$i - 1] == 1 && $seq[$i] != 8) {
-                    return false;
-                }
-                if ($seq[$i - 1] == 8 && $seq[$i] != 1) {
-                    return false;
-                }
-            }
-
-            if ($i % 2 == 0 && ($seq[$i] == 4 || $seq[$i] == 5)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
 }

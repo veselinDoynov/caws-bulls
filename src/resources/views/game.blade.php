@@ -113,7 +113,7 @@
                         $('#newGame').show();
                         return;
                     }
-                    
+
                     $('#currentResult').html('You have ' + data.bulls + ' bulls and ' + data.caws + ' caws');
 
 
