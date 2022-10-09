@@ -64,15 +64,18 @@ class GameServiceTest extends TestCase
 
         $seq = [1, 8, 5, 9];
         $this->assertTrue($this->gameService->isOk($seq));
+
+        $seq = [7, 6, 0, 3];
+        $this->assertTrue($this->gameService->isOk($seq));
     }
 
     public function testGenerateUniqueSequence()
     {
 
         $seq = $this->gameService->generateUniqueDigitSequence();
-        $possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        $possibilities = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-        $this->assertEquals(5, count(array_diff($possibilities, $seq)));
+        $this->assertEquals(6, count(array_diff($possibilities, $seq)));
     }
 
     public function testCalculateCawsAndBulls()

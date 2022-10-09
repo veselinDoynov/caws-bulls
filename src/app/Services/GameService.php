@@ -26,6 +26,8 @@ class GameService
 
     public const ODD_FORBIDDEN = [4, 5];
 
+    public const AVAILABLE_NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 
     /** @var int */
     protected $suggestionsCount = 0;
@@ -68,8 +70,8 @@ class GameService
         for ($i = 0; $i < count($seq); $i++) {
 
             if (in_array($seq[$i], GameService::NEIGHBORS)) {
-                $surroundLeft = isset($seq[$i - 1]) ? $seq[$i - 1] : 0;
-                $surroundRight = isset($seq[$i + 1]) ? $seq[$i + 1] : 0;
+                $surroundLeft = isset($seq[$i - 1]) ? $seq[$i - 1] : null;
+                $surroundRight = isset($seq[$i + 1]) ? $seq[$i + 1] : null;
                 if (!in_array($surroundLeft, GameService::NEIGHBORS) && !in_array($surroundRight, GameService::NEIGHBORS)) {
                     return false;
                 }
@@ -92,7 +94,7 @@ class GameService
     {
 
         $seq = [];
-        $available = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        $available = GameService::AVAILABLE_NUMBERS;
         shuffle($available);
 
         for ($i = 0; $i < $length; $i++) {
